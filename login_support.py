@@ -6,7 +6,7 @@
 #    Oct 19, 2020 03:34:57 AM GMT  platform: Windows NT
 #    Oct 19, 2020 03:57:20 AM GMT  platform: Windows NT
 
-from main import *
+
 from tkinter import messagebox
 import sys
 
@@ -27,24 +27,24 @@ def init(top, gui, *args, **kwargs):
     w = gui
     top_level = top
     root = top
-    
+   
 
 def login():
     print('login_support.login')
-    w.loginButton.configure(background="green")
-    w.exitButton.configure(background="#d9d9d9")
+
     
     if (w.userNameEntry.get()=='ASTI') and (w.passWordEntry.get()=='asti'):
         print('True')
         #to do something
-        w.loginButton.configure(background="#d9d9d9")
+        import setting
+        setting.create_SETTING(root)
         w.userNameEntry.delete(0,'end')
         w.passWordEntry.delete(0,'end')
     else:
         messagebox.showinfo("Notification","Username or password is incorrect, please re-enter")
         w.userNameEntry.delete(0,'end')
         w.passWordEntry.delete(0,'end')
-        w.loginButton.configure(background="#d9d9d9")
+        
     sys.stdout.flush()
 
 def quitLogin():
@@ -52,6 +52,7 @@ def quitLogin():
     sys.stdout.flush()
     root.destroy()
     
+
 def destroy_window():
     # Function which closes the window.
     global top_level

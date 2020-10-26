@@ -9,9 +9,10 @@
 #    Oct 19, 2020 01:41:52 AM GMT  platform: Windows NT
 #    Oct 19, 2020 02:29:19 AM GMT  platform: Windows NT
 #    Oct 19, 2020 02:40:26 AM GMT  platform: Windows NT
-import login
+import psutil
 import sys
-
+from tkinter import messagebox
+from datetime import datetime
 try:
     import Tkinter as tk
 except ImportError:
@@ -30,78 +31,72 @@ def init(top, gui, *args, **kwargs):
     top_level = top
     root = top
 
+    update_clock()
+    
+    sys.stdout.flush()
+
+   
+    
 def engSetting():
     #print('main_support.engSetting')
     w.settingButton.configure(text='''SETTING''')
-    w.showButton.configure(text='''SHOW''')
+    w.showButton.configure(text='''INFORMATION''')
     w.peripheralButton.configure(text='''PERIPHERAL''')
     w.selectLanguage.configure(text='''SELECT LANGUAGE''')
     w.selectOption.configure(text='''SELECT OPTION''')
     w.exitButton.configure(text='''EXIT''')
-    w.engButton.configure( foreground='white',bg="green",relief=tk.SUNKEN)
-    w.vietButton.configure(foreground='black',bg="#d9d9d9")
-    w.settingButton.configure(foreground="#000000",bg="#d9d9d9")
-    w.showButton.configure(foreground="#000000",bg="#d9d9d9")
-    w.peripheralButton.configure(foreground="#000000",bg="#d9d9d9")
+
+
     sys.stdout.flush()
 
 def vietSetting():
     #print('main_support.vietSetting')
     w.settingButton.configure(text='''CÀI ĐẶT''')
-    w.showButton.configure(text='''HIỂN THỊ''')
+    w.showButton.configure(text='''THÔNG TIN''')
     w.peripheralButton.configure(text='''NGOẠI VI''')
     w.selectLanguage.configure(text='''CHỌN NGÔN NGỮ''')
     w.selectOption.configure(text='''TÙY CHỌN''')
     w.exitButton.configure(text='''THOÁT''')
-    w.vietButton.configure( foreground='#d9d9d9',bg="green",relief=tk.SUNKEN)
-    w.engButton.configure(foreground="#000000",bg="#d9d9d9")
-    w.settingButton.configure(foreground="#000000",bg="#d9d9d9")
-    w.showButton.configure(foreground="#000000",bg="#d9d9d9")
-    w.peripheralButton.configure(foreground="#000000",bg="#d9d9d9")
+
+  
     sys.stdout.flush()
 
 def setting():
     #print('main_support.setting')
     sys.stdout.flush()
     
-    w.settingButton.configure( foreground='white',bg="green",relief=tk.SUNKEN)
-    w.showButton.configure(foreground="#000000",bg="#d9d9d9")
-    w.peripheralButton.configure(foreground="#000000",bg="#d9d9d9")
-    w.engButton.configure(foreground="#000000",bg="#d9d9d9")
-    w.vietButton.configure(foreground="#000000",bg="#d9d9d9")
+
+
+    import login
     login.create_LOGIN(root)
    
    
 def show():
     #print('main_support.show')
-    w.showButton.configure( foreground='white',bg="green",relief=tk.SUNKEN)
-    w.settingButton.configure(foreground="#000000",bg="#d9d9d9")
-    w.peripheralButton.configure(foreground="#000000",bg="#d9d9d9")
-    w.engButton.configure(foreground="#000000",bg="#d9d9d9")
-    w.vietButton.configure(foreground="#000000",bg="#d9d9d9")
-    sys.stdout.flush()
 
+
+    sys.stdout.flush()
+    import selectInformation
+    selectInformation.create_SELECTINFORMATION(root)
 def peripheral():
     #print('main_support.peripheral')
-    w.peripheralButton.configure( foreground='white',bg="green",relief=tk.SUNKEN)
-    w.showButton.configure(foreground="#000000",bg="#d9d9d9")
-    w.settingButton.configure(foreground="#000000",bg="#d9d9d9")
-    w.engButton.configure(foreground="#000000",bg="#d9d9d9")
-    w.vietButton.configure(foreground="#000000",bg="#d9d9d9")
+ 
+
     sys.stdout.flush()
 
 def quit():
     #print('main_support.quit')
-    w.exitButton.configure(background="green")
+   
    
     MsgBox=tk.messagebox.askquestion ('Exit Application','Are you sure you want to exit the application',icon = 'warning')
+    
     if MsgBox == 'yes':
        exit()
     else:
         tk.messagebox.showinfo('Return','You will now return to the application screen')
     
     sys.stdout.flush()
-    w.exitButton.configure(background="#d9d9d9")
+
     sys.stdout.flush()
 
 def destroy_window():
@@ -109,10 +104,18 @@ def destroy_window():
     global top_level
     top_level.destroy()
     top_level = None
+def update_clock():
+    now = datetime.now()
+    dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+    
+    w.timeLabel.configure(text=dt_string)
+    root.after(1000,update_clock)
 
+    
 if __name__ == '__main__':
     import main
     main.vp_start_gui()
+    
 
 
 
